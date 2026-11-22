@@ -39,9 +39,10 @@ Cât așteaptă, ceilalți pot trimite reacții (😂 👏 😱 🔥) care zboar
 
 ## Cum funcționează (tehnic)
 - Site static (HTML, CSS, JavaScript), fără server propriu, găzduit pe **GitHub Pages**.
-- Telefoanele vorbesc direct cu laptopul prin **WebRTC**, cu biblioteca [PeerJS](https://peerjs.com/) (licență MIT). Serverul public gratuit PeerJS face doar „prezentarea”; datele jocului circulă direct între dispozitive.
+- Telefoanele și laptopul își trimit mesaje prin servere publice gratuite **MQTT** (WebSocket securizat): HiveMQ, EMQX și Mosquitto. Laptopul ascultă pe toate trei, iar telefonul îl folosește pe primul care merge, așa că jocul merge și pe date mobile sau pe rețele Wi-Fi diferite. Biblioteca e [MQTT.js](https://github.com/mqttjs/MQTT.js) (licență MIT).
+- Serverele sunt publice: mesajele jocului (porecle, mutări) nu sunt secrete, deci nu scrieți date personale în nume.
 - Codul QR e generat local cu [qrcode-generator](https://github.com/kazuhikoarase/qrcode-generator) (licență MIT).
-- Ambele biblioteci sunt copiate în `lib/`, ca jocul să nu depindă de alte site-uri.
+- Ambele biblioteci sunt copiate în `lib/`, ca jocul să nu depindă de alte site-uri pentru cod.
 
 Textele (provocări, dileme, avatare) sunt în `continut.js` și se pot completa ușor.
 

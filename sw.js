@@ -1,7 +1,7 @@
 // Service worker: paginile se incarca repede si pot fi „instalate” pe ecranul principal.
 // Jocul in sine are nevoie de internet (legatura dintre telefoane si laptop).
 
-const CACHE = 'hai-la-tabla-v1';
+const CACHE = 'hai-la-tabla-v2';
 const FISIERE = [
   './',
   'index.html',
@@ -15,7 +15,7 @@ const FISIERE = [
   'sunet.js',
   'ecran.js',
   'telefon.js',
-  'lib/peerjs.min.js',
+  'lib/mqtt.min.js',
   'lib/qrcode.js',
   'manifest.webmanifest',
   'icons/icon-192.png',

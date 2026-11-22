@@ -102,10 +102,19 @@ function arataStare(s) {
     banda.hidden = true;
     return;
   }
-  if (!st.vedere || st.vedere.tip === 'conectare') {
+  if (!st.vedere || st.vedere.tip === 'conectare' || st.vedere.tip === 'negasit') {
     // inca nu am intrat: aratam pe tot ecranul ce se intampla
-    if (s === 'negasit') arataVedere({ tip: 'negasit' });
-    else if (s === 'fara-internet') arataVedere({ tip: 'conectare', text: 'Nu am internet… reîncerc.' });
+    if (s === 'negasit') {
+      if (st.vedere?.tip !== 'negasit') arataVedere({ tip: 'negasit' });
+    } else {
+      const texte = {
+        conectare: 'Pasul 1 din 2: mă conectez la internet…',
+        caut: `Pasul 2 din 2: caut ecranul mare (camera ${st.cod})…`,
+        pierdut: 'Reîncerc…',
+        'fara-internet': 'Nu am internet… reîncerc.',
+      };
+      arataVedere({ tip: 'conectare', text: texte[s] || 'Mă conectez…' });
+    }
     return;
   }
   banda.textContent = s === 'negasit' ? '📡 Ecranul mare nu răspunde… reîncerc' : '📡 Se reconectează…';
@@ -166,7 +175,7 @@ const RANDARI = {
 
   negasit(v, el) {
     el.innerHTML = `<div class="centru"><div class="mare-emoji">🔎</div><h2>Nu găsesc camera ${esc(st.cod)}</h2>
-      <p class="text-lung">Verifică dacă ecranul mare e deschis și dacă ai scris codul corect. Reîncerc automat…</p>
+      <p class="text-lung">Verifică:\n• pagina „Ecranul mare” e deschisă pe laptop;\n• codul de pe laptop e chiar ${esc(st.cod)}.\n\nReîncerc automat…</p>
       <button type="button" class="buton" id="b-schimba">✏️ Schimbă codul</button></div>`;
     $('#b-schimba').addEventListener('click', () => arataIntrare());
   },
