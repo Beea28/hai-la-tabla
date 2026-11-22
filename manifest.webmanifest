@@ -1,0 +1,16 @@
+{
+  "name": "Hai la Tablă!",
+  "short_name": "Hai la Tablă",
+  "description": "Joc de tablă pentru 2–6 jucători: tabla pe laptop, telefoanele sunt telecomenzi.",
+  "lang": "ro",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#fff4e6",
+  "theme_color": "#ff5d3a",
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

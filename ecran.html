@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="ro">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hai la Tablă! – ecranul mare</title>
+  <meta name="description" content="Tabla de joc. Deschide pe laptop sau TV; jucătorii intră de pe telefon.">
+  <meta name="theme-color" content="#ff5d3a">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon-192.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="comun.css">
+  <link rel="stylesheet" href="ecran.css">
+</head>
+<body class="ecran">
+
+  <!-- Pornire: joc nou sau continuare -->
+  <section id="pornire" class="pornire">
+    <div class="pornire-card">
+      <h1 class="logo"><span class="zar-logo">⚄</span>Hai la <b>Tablă!</b></h1>
+      <div id="pornire-continut"><p class="slab">Se pregătește camera…</p></div>
+    </div>
+  </section>
+
+  <!-- Camera de asteptare -->
+  <section id="lobby" class="lobby" hidden>
+    <div class="lobby-st">
+      <h1 class="logo logo-mare"><span class="zar-logo">⚄</span>Hai la <b>Tablă!</b></h1>
+      <div class="intrare-card">
+        <div id="qr" class="qr" aria-label="Cod QR pentru intrare"></div>
+        <div class="intrare-text">
+          <p class="pas-mare">📱 Scanați codul cu telefonul</p>
+          <p class="slab">sau intrați pe <b id="adresa"></b><br>și scrieți codul camerei:</p>
+          <div id="cod-mare" class="cod-mare">····</div>
+          <p id="stare-retea" class="stare-retea">Se conectează…</p>
+        </div>
+      </div>
+      <div class="cum">
+        <h3>Cum se joacă</h3>
+        <ul>
+          <li><span>📱</span> Telefonul fiecăruia e telecomanda. Tabla se vede aici.</li>
+          <li><span>🎲</span> Pe rând, aruncați zarul și mergeți pe tablă. Căsuțele colorate au surprize.</li>
+          <li><span>🎮</span> După fiecare rundă urmează un minijoc scurt, pentru toți. Câștigătorii merg înainte.</li>
+          <li><span>🏆</span> Primul care ajunge la trofeu câștigă!</li>
+        </ul>
+      </div>
+    </div>
+    <div class="lobby-dr">
+      <h2>Jucători <span id="nr-jucatori" class="nr-jucatori">0/6</span></h2>
+      <div id="lobby-jucatori" class="lobby-jucatori"></div>
+      <div class="setari">
+        <p class="eticheta">Cât de lung să fie jocul?</p>
+        <div id="seg-lungime" class="segment" role="radiogroup" aria-label="Lungimea jocului">
+          <button type="button" data-v="30" role="radio">Scurt<small>~10 min</small></button>
+          <button type="button" data-v="42" role="radio">Mediu<small>~15 min</small></button>
+          <button type="button" data-v="54" role="radio">Lung<small>~25 min</small></button>
+        </div>
+      </div>
+      <button id="buton-start" class="buton principal buton-start" type="button" disabled>▶ Începe jocul</button>
+      <p id="nota-start" class="nota-start">E nevoie de cel puțin 2 jucători.</p>
+    </div>
+  </section>
+
+  <!-- Jocul -->
+  <section id="joc" class="joc" hidden>
+    <div class="zona-tabla">
+      <div id="banner" class="banner"></div>
+      <svg id="tabla" class="tabla" xmlns="http://www.w3.org/2000/svg"></svg>
+    </div>
+    <aside class="lateral">
+      <div class="lat-sus">
+        <h2 class="logo"><span class="zar-logo">⚄</span>Hai la <b>Tablă!</b></h2>
+        <p id="lat-runda" class="lat-runda">Runda 1</p>
+      </div>
+      <ol id="lista-jucatori" class="lista-jucatori"></ol>
+      <div class="legenda">
+        <p><span class="leg t-plus">⏩</span> 3 căsuțe înainte</p>
+        <p><span class="leg t-minus">🍌</span> 3 căsuțe înapoi</p>
+        <p><span class="leg t-cadou">🎁</span> Carte surpriză</p>
+        <p><span class="leg t-provocare">🎭</span> Provocare</p>
+        <p><span class="leg t-schimb">🔄</span> Schimbă locul</p>
+        <p><span class="leg t-zar">🎲</span> Mai arunci o dată</p>
+      </div>
+      <div class="lat-jos">
+        <div id="qr-mic" class="qr-mic"></div>
+        <p>Cod cameră<br><b id="cod-mic"></b><br><small>(pentru reconectare)</small></p>
+      </div>
+    </aside>
+  </section>
+
+  <!-- Zarul -->
+  <div id="strat-zar" class="strat" hidden>
+    <div class="zar-cutie">
+      <div class="zar-scena"><div class="zar-inclinat"><div id="zar" class="zar"></div></div></div>
+      <p id="zar-text" class="zar-text"></p>
+      <button id="zar-buton" class="buton mic" type="button">🎲 Aruncă în locul lui</button>
+    </div>
+  </div>
+
+  <!-- Anunturi (carti, efecte) -->
+  <div id="strat-anunt" class="strat" hidden></div>
+
+  <!-- Minijocuri -->
+  <section id="mj" class="mj" hidden>
+    <header class="mj-cap">
+      <span id="mj-emoji" class="mj-emoji"></span>
+      <h2 id="mj-titlu" class="mj-titlu"></h2>
+      <div class="mj-timp"><i id="mj-timp"></i></div>
+    </header>
+    <div id="mj-corp" class="mj-corp"></div>
+  </section>
+
+  <!-- Final -->
+  <section id="final" class="final" hidden>
+    <canvas id="confetti" class="confetti"></canvas>
+    <div class="final-continut">
+      <h1 id="final-titlu" class="final-titlu"></h1>
+      <div id="podium" class="podium"></div>
+      <ol id="final-rest" class="final-rest"></ol>
+      <div class="final-butoane">
+        <button id="buton-din-nou" class="buton principal" type="button">🔁 Încă un joc</button>
+        <button id="buton-camera-noua" class="buton" type="button">🏠 Cameră nouă</button>
+      </div>
+    </div>
+  </section>
+
+  <div id="reactii" class="reactii" aria-hidden="true"></div>
+
+  <div class="unelte">
+    <button id="buton-sunet" class="unealta" type="button" title="Sunet">🔊</button>
+    <button id="buton-ecran" class="unealta" type="button" title="Ecran complet">⛶</button>
+  </div>
+
+  <script src="lib/peerjs.min.js"></script>
+  <script src="lib/qrcode.js"></script>
+  <script src="continut.js"></script>
+  <script src="sunet.js"></script>
+  <script src="retea.js"></script>
+  <script src="ecran.js"></script>
+</body>
+</html>

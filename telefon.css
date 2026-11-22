@@ -1,0 +1,382 @@
+/* ===== Telefonul (telecomanda) ===== */
+html, body.telefon { height: 100%; }
+body.telefon {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(170deg, #fff4e6 0%, #ffe2ea 60%, #e3ecff 100%);
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+  overscroll-behavior: none;
+  font-size: 17px;
+}
+body.telefon input { -webkit-user-select: text; user-select: text; }
+.telefon h2 { font-size: 1.7rem; }
+.telefon .mic { font-size: 0.95rem; color: var(--slab); }
+
+/* ---------- Intrare ---------- */
+.intrare {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding: max(20px, env(safe-area-inset-top)) 16px max(20px, env(safe-area-inset-bottom));
+  max-width: 480px;
+  width: 100%;
+  margin: 0 auto;
+}
+.intrare .logo { font-size: 2.4rem; text-align: center; margin-top: 8px; }
+.form { display: grid; gap: 16px; }
+.camp { display: grid; gap: 6px; font-weight: 800; }
+.camp input {
+  font: inherit;
+  font-size: 1.25rem;
+  font-weight: 800;
+  padding: 14px 16px;
+  border-radius: 16px;
+  border: 3px solid var(--linie);
+  background: #fff;
+  color: var(--text);
+  width: 100%;
+  outline: none;
+}
+.camp input:focus { border-color: var(--accent); }
+.in-cod { text-transform: uppercase; letter-spacing: 0.3em; text-align: center; font-family: var(--font-titlu); font-size: 1.8rem !important; }
+.avatare { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+.avatare button {
+  aspect-ratio: 1;
+  border-radius: 18px;
+  border: 3px solid transparent;
+  background: #fff;
+  font-size: 2rem;
+  cursor: pointer;
+  box-shadow: var(--umbra-mica);
+}
+.avatare button[aria-checked="true"] { border-color: var(--accent); background: #fff1ec; transform: scale(1.06); }
+.buton-intra { font-size: 1.4rem; padding: 0.8em; }
+.mesaj-intrare { color: var(--rosu); font-weight: 800; text-align: center; min-height: 1.4em; }
+.nota-jos { text-align: center; color: var(--slab); font-size: 0.9rem; margin-top: auto; }
+
+/* ---------- Antet in joc ---------- */
+.cap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: max(10px, env(safe-area-inset-top)) 14px 10px;
+  background: rgba(255, 255, 255, 0.85);
+  border-bottom: 4px solid var(--c, var(--accent));
+}
+.cap .av-cerc { font-size: 1.1rem; }
+.cap-nume { font-weight: 900; font-size: 1.1rem; flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.cap-poz { font-weight: 800; color: var(--slab); font-size: 0.95rem; }
+.punct-stare { width: 12px; height: 12px; border-radius: 50%; background: #f59e0b; flex: none; }
+.punct-stare.ok { background: var(--verde); }
+.punct-stare.rau { background: var(--rosu); }
+
+.banda {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 20;
+  background: #1f2340;
+  color: #fff;
+  text-align: center;
+  font-weight: 800;
+  padding: max(10px, env(safe-area-inset-top)) 12px 10px;
+}
+
+/* ---------- Vederi ---------- */
+.vedere {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 16px 16px max(16px, env(safe-area-inset-bottom));
+  gap: 14px;
+  min-height: 0;
+  overflow-y: auto;
+  max-width: 560px;
+  width: 100%;
+  margin: 0 auto;
+}
+.centru {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 14px;
+}
+.sus { text-align: center; display: grid; gap: 8px; }
+.mare-emoji { font-size: 5.5rem; line-height: 1; animation: apare 0.4s cubic-bezier(.34, 1.56, .64, 1); }
+.mare-emoji.spin { animation: rostogol 1.2s linear infinite; }
+.mare-emoji.bum { animation: apare 0.3s ease, tremura 0.5s ease 0.3s; }
+@keyframes rostogol { to { transform: rotate(360deg); } }
+.text-lung { font-size: 1.15rem; font-weight: 700; color: var(--slab); white-space: pre-line; line-height: 1.4; }
+
+.buton.mare { font-size: 1.35rem; padding: 0.85em 1.6em; }
+
+/* reactii */
+.bara-reactii {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 20px;
+  padding: 8px;
+}
+.b-reactie {
+  border: 0;
+  background: #fff;
+  border-radius: 14px;
+  font-size: 1.7rem;
+  padding: 8px 0;
+  cursor: pointer;
+  box-shadow: 0 3px 0 rgba(31, 35, 64, 0.12);
+}
+.b-reactie.pop { animation: apare 0.3s cubic-bezier(.34, 1.56, .64, 1); }
+
+/* zar */
+.buton-zar {
+  --c: var(--accent);
+  width: min(72vw, 300px);
+  aspect-ratio: 1;
+  border: 0;
+  border-radius: 40px;
+  background: var(--c);
+  color: #fff;
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 8px;
+  box-shadow: 0 10px 0 rgba(0, 0, 0, 0.22), 0 18px 40px rgba(0, 0, 0, 0.18);
+  cursor: pointer;
+  animation: puls 1.3s ease infinite;
+  touch-action: manipulation;
+}
+.buton-zar:active { transform: translateY(6px); box-shadow: 0 4px 0 rgba(0, 0, 0, 0.22); }
+.buton-zar .zar-mic { font-size: 6rem; line-height: 1; }
+.buton-zar b { font-family: var(--font-titlu); font-size: 1.7rem; }
+.buton-zar.rostogol { animation: none; opacity: 0.8; }
+.v-zar .centru { gap: 26px; }
+.buton-zar.rostogol .zar-mic { animation: rostogol 0.6s linear infinite; }
+
+/* alegeri */
+.optiuni { display: grid; gap: 12px; flex: 1; align-content: center; }
+.optiune {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  border: 3px solid transparent;
+  background: #fff;
+  border-radius: 22px;
+  padding: 18px 18px;
+  font-size: 1.3rem;
+  font-weight: 900;
+  text-align: left;
+  cursor: pointer;
+  box-shadow: 0 5px 0 rgba(31, 35, 64, 0.14);
+  touch-action: manipulation;
+}
+.optiune:active { transform: translateY(3px); box-shadow: 0 2px 0 rgba(31, 35, 64, 0.14); }
+.optiune .o-e { font-size: 2.4rem; line-height: 1; }
+.optiuni.multe .optiune { padding: 12px 16px; font-size: 1.1rem; }
+.optiuni.multe .optiune .o-e { font-size: 1.9rem; }
+.optiune.aleasa { border-color: var(--accent); background: #fff1ec; }
+.optiune.stinsa { opacity: 0.35; }
+.trimis { text-align: center; font-weight: 800; color: var(--verde); }
+
+.numaratoare { font-family: var(--font-titlu); font-weight: 800; font-size: 8rem; line-height: 1; color: var(--accent); }
+
+/* bara de timp */
+.tel-timp { height: 12px; background: rgba(31, 35, 64, 0.1); border-radius: 99px; overflow: hidden; flex: none; }
+.tel-timp i { display: block; height: 100%; background: var(--accent); transform-origin: left; animation: scade-t linear forwards; }
+@keyframes scade-t { from { transform: scaleX(1); } to { transform: scaleX(0); } }
+
+/* degete de foc */
+.buton-apasa {
+  --c: var(--accent);
+  width: min(78vw, 340px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 0;
+  background: radial-gradient(circle at 35% 30%, rgba(255, 255, 255, 0.35), transparent 45%), var(--c);
+  color: #fff;
+  display: grid;
+  place-items: center;
+  align-content: center;
+  box-shadow: 0 12px 0 rgba(0, 0, 0, 0.25);
+  touch-action: none;
+  cursor: pointer;
+}
+.buton-apasa b { font-family: var(--font-titlu); font-size: 5rem; line-height: 1; }
+.buton-apasa span { font-family: var(--font-titlu); font-size: 1.6rem; font-weight: 800; }
+.buton-apasa.lovit { animation: lovit 0.12s ease; }
+@keyframes lovit { 50% { transform: scale(0.94) translateY(6px); box-shadow: 0 5px 0 rgba(0, 0, 0, 0.25); } }
+
+/* semafor */
+.semafor-tel {
+  flex: 1;
+  border: 0;
+  border-radius: 32px;
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 10px;
+  color: #fff;
+  font-size: 1.6rem;
+  touch-action: none;
+  cursor: pointer;
+  min-height: 60vh;
+}
+.semafor-tel b { font-family: var(--font-titlu); font-size: 2.4rem; }
+.semafor-tel small { font-weight: 800; opacity: 0.85; }
+.semafor-tel .st-mare { font-size: 5rem; line-height: 1; }
+.semafor-tel.rosu { background: #ef4444; }
+.semafor-tel.verde { background: #16a34a; }
+.semafor-tel.gata { background: #475569; }
+
+/* cronometru */
+.ceas { font-family: var(--font-titlu); font-weight: 800; font-size: 5.5rem; line-height: 1; font-variant-numeric: tabular-nums; }
+.ceas.ascuns { color: rgba(31, 35, 64, 0.3); }
+.buton-mare {
+  border: 0;
+  border-radius: 999px;
+  font-family: var(--font-titlu);
+  font-weight: 800;
+  font-size: 2.2rem;
+  padding: 0.6em 1.6em;
+  background: var(--accent);
+  color: #fff;
+  box-shadow: 0 8px 0 var(--accent-inchis);
+  touch-action: none;
+  cursor: pointer;
+}
+.buton-mare:disabled { background: #94a3b8; box-shadow: 0 8px 0 #64748b; }
+
+/* tastatura numerica */
+.afisaj {
+  text-align: center;
+  font-family: var(--font-titlu);
+  font-weight: 800;
+  font-size: 4rem;
+  background: #fff;
+  border-radius: 22px;
+  padding: 6px;
+  min-height: 1.4em;
+}
+.afisaj.trimis { color: var(--verde); }
+.tastatura { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.tastatura.stinsa { opacity: 0.35; pointer-events: none; }
+.tasta {
+  border: 0;
+  border-radius: 18px;
+  background: #fff;
+  font-family: var(--font-titlu);
+  font-weight: 800;
+  font-size: 2rem;
+  padding: 12px 0;
+  box-shadow: 0 4px 0 rgba(31, 35, 64, 0.14);
+  touch-action: manipulation;
+  cursor: pointer;
+}
+.tasta:active { transform: translateY(3px); box-shadow: 0 1px 0 rgba(31, 35, 64, 0.14); }
+.tasta.ok { background: var(--verde); color: #fff; }
+
+/* capcana culorilor + intrus */
+.scor-mic { text-align: center; font-weight: 900; font-size: 1.2rem; }
+.scor-mic b { font-family: var(--font-titlu); font-size: 1.6rem; color: var(--accent); }
+.stroop-cuvant {
+  background: #1e1b4b;
+  border-radius: 26px;
+  font-family: var(--font-titlu);
+  font-weight: 800;
+  font-size: clamp(2.6rem, 13vw, 4rem);
+  text-align: center;
+  padding: 22px 8px;
+  letter-spacing: 0.03em;
+}
+.stroop-cuvant.nou { animation: apare 0.2s ease; }
+.stroop-butoane { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; flex: 1; align-content: center; }
+.stroop-b {
+  aspect-ratio: 1.3;
+  border: 0;
+  border-radius: 26px;
+  box-shadow: 0 7px 0 rgba(0, 0, 0, 0.2);
+  touch-action: none;
+  cursor: pointer;
+}
+.stroop-b:active { transform: translateY(4px); box-shadow: 0 3px 0 rgba(0, 0, 0, 0.2); }
+.grila { display: grid; gap: 6px; flex: 1; align-content: center; }
+.grila.tremura { animation: tremura 0.35s ease; }
+.celula {
+  aspect-ratio: 1;
+  border: 0;
+  border-radius: 14px;
+  background: #fff;
+  font-size: 2.4rem;
+  line-height: 1;
+  padding: 0;
+  touch-action: none;
+  cursor: pointer;
+  box-shadow: 0 3px 0 rgba(31, 35, 64, 0.1);
+}
+.grila.m4 .celula { font-size: 1.9rem; }
+.grila.m5 .celula { font-size: 1.5rem; border-radius: 10px; }
+
+body.flash-bine .vedere { animation: flash-v 0.25s ease; }
+body.flash-rau .vedere { animation: flash-r 0.25s ease; }
+@keyframes flash-v { 50% { background: rgba(22, 163, 74, 0.18); } }
+@keyframes flash-r { 50% { background: rgba(225, 29, 72, 0.2); } }
+
+/* memorie */
+.progres { display: flex; gap: 6px; justify-content: center; flex-wrap: wrap; }
+.progres i { width: 16px; height: 16px; border-radius: 50%; background: rgba(31, 35, 64, 0.15); }
+.progres i.ok { background: var(--verde); }
+.paduri { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; flex: 1; align-content: center; }
+.pad {
+  --c: #888;
+  aspect-ratio: 1;
+  border: 0;
+  border-radius: 28px;
+  background: var(--c);
+  font-size: 4rem;
+  box-shadow: 0 8px 0 rgba(0, 0, 0, 0.22);
+  touch-action: none;
+  cursor: pointer;
+}
+.pad.aprins { animation: apasat 0.25s ease; }
+@keyframes apasat { 50% { transform: scale(0.92); filter: brightness(1.3); } }
+
+/* balon */
+.balon-zona { height: 42vh; display: grid; place-items: end center; }
+.balon-tel {
+  --c: var(--accent);
+  width: 150px;
+  height: 180px;
+  border-radius: 50% 50% 48% 48% / 55% 55% 45% 45%;
+  background: radial-gradient(circle at 32% 28%, rgba(255, 255, 255, 0.75) 0 7%, transparent 8%), var(--c);
+  transform-origin: 50% 100%;
+  transform: scale(0.4);
+  box-shadow: inset -10px -12px 0 rgba(0, 0, 0, 0.15);
+}
+.buton-tine {
+  border: 0;
+  border-radius: 999px;
+  width: 100%;
+  font-family: var(--font-titlu);
+  font-weight: 800;
+  font-size: 1.8rem;
+  padding: 1em;
+  background: var(--accent);
+  color: #fff;
+  box-shadow: 0 8px 0 var(--accent-inchis);
+  touch-action: none;
+  -webkit-touch-callout: none;
+  cursor: pointer;
+}
+.buton-tine.apasat { transform: translateY(6px); box-shadow: 0 2px 0 var(--accent-inchis); background: #f97316; }
+.buton-tine:disabled { background: #94a3b8; box-shadow: 0 8px 0 #64748b; font-size: 1.4rem; }
