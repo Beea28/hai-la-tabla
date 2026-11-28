@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="ro">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+  <title>Avioanele – telefonul</title>
+  <meta name="description" content="Intră în Avioanele cu telefonul. Tablele se văd pe ecranul mare.">
+  <meta name="theme-color" content="#0891b2">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon-192.png" type="image/png">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Avioanele">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../comun.css">
+  <link rel="stylesheet" href="../telefon.css">
+  <link rel="stylesheet" href="../comun/jocuri.css">
+  <link rel="stylesheet" href="stil.css">
+</head>
+<body class="telefon" data-emoji="✈️">
+
+  <header id="cap" class="cap" hidden>
+    <span id="cap-av" class="av-cerc"></span>
+    <span id="cap-nume" class="cap-nume"></span>
+    <span id="cap-poz" class="cap-poz"></span>
+    <span id="cap-stare" class="punct-stare" title="Conexiune"></span>
+  </header>
+
+  <main id="intrare" class="intrare">
+    <h1 class="logo"><span class="zar-logo">✈</span>Avioa<b>nele</b></h1>
+    <form id="form" class="form" autocomplete="off">
+      <label class="camp">
+        <span>Codul camerei</span>
+        <input id="in-cod" class="in-cod" maxlength="4" autocapitalize="characters" spellcheck="false" placeholder="ABCD" inputmode="text" required>
+      </label>
+      <label class="camp">
+        <span>Numele tău</span>
+        <input id="in-nume" maxlength="12" autocapitalize="words" spellcheck="false" placeholder="ex. Ana" required>
+      </label>
+      <div class="camp">
+        <span>Alege-ți personajul</span>
+        <div id="avatare" class="avatare" role="radiogroup" aria-label="Personaj"></div>
+      </div>
+      <button class="buton principal buton-intra" type="submit">Intră în joc ✈️</button>
+      <p id="mesaj-intrare" class="mesaj-intrare" role="alert"></p>
+    </form>
+    <p class="nota-jos">Tablele se văd pe ecranul mare (laptop sau TV).<br>Ține telefonul deschis pe pagina asta cât jucați.</p>
+  </main>
+
+  <main id="vedere" class="vedere" hidden></main>
+
+  <div id="banda" class="banda" hidden>📡 Se reconectează…</div>
+
+  <script src="../lib/mqtt.min.js"></script>
+  <script src="../comun/baza.js"></script>
+  <script src="../retea.js" data-canal="avioane/v1/"></script>
+  <script src="../comun/telecomanda.js" data-joc="avioane"></script>
+  <script src="avion.js"></script>
+  <script src="telefon.js"></script>
+</body>
+</html>

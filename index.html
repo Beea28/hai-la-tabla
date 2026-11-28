@@ -56,6 +56,9 @@
     .minijocuri { display: flex; flex-wrap: wrap; gap: 8px; }
     .minijocuri span { background: #fff; border-radius: 999px; padding: 6px 14px; font-weight: 800; }
     footer { text-align: center; color: var(--slab); font-size: 0.9rem; }
+    .alte-jocuri { display: grid; gap: 14px; }
+    .alte-jocuri > h2 { font-size: 1.8rem; text-align: center; }
+    .alt-joc .buton.principal { background: var(--a); box-shadow: 0 5px 0 var(--ai); }
   </style>
 </head>
 <body>
@@ -81,6 +84,24 @@
           <button class="buton principal" type="submit">Intră</button>
         </div>
       </form>
+    </section>
+
+    <section class="alte-jocuri">
+      <h2>Mai multe jocuri cu telefoanele</h2>
+      <div class="alegeri">
+        <a class="alegere alt-joc" href="tomapan/" style="--a:#2563eb;--ai:#1d4ed8">
+          <span class="mare">✍️</span>
+          <h2>Țomapan</h2>
+          <p>Țări, orașe, munți, ape, plante, animale, nume! Litera apare pe ecranul mare, fiecare scrie pe telefon. 2–8 jucători.</p>
+          <span class="buton principal">Joacă Țomapan</span>
+        </a>
+        <a class="alegere alt-joc" href="avioane/" style="--a:#0891b2;--ai:#0e7490">
+          <span class="mare">✈️</span>
+          <h2>Avioanele</h2>
+          <p>Îți ascunzi avioanele pe telefon și tragi în tablele celorlalți. Nimerești capul? Avionul cade! 2–6 jucători, poate juca și calculatorul.</p>
+          <span class="buton principal">Joacă Avioanele</span>
+        </a>
+      </div>
     </section>
 
     <section class="cum">

@@ -1,0 +1,51 @@
+/* Stiluri comune pentru Țomapan și Avioanele (peste comun.css + ecran.css sau telefon.css) */
+
+/* culoarea fiecărui joc (--accent) se folosește și la elementele alese */
+.segment button[aria-checked="true"],
+.avatare button[aria-checked="true"],
+.optiune.aleasa { background: color-mix(in srgb, var(--accent) 10%, #fff); }
+.tremura { animation: tremura 0.35s ease; }
+.centrat { text-align: center; }
+
+/* ---------- Ecranul mare ---------- */
+a.unealta { display: grid; place-items: center; text-decoration: none; }
+
+/* camera de așteptare: jucătorii pe mai multe coloane, ca să încapă și setările */
+.lobby-dr { min-height: 0; }
+.lobby-jucatori.compact { grid-template-columns: repeat(var(--col, 4), 1fr); flex: none; gap: 1.2vh; }
+.lobby-jucatori.compact .loc-jucator {
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  gap: 0.4vh;
+  min-height: 12.5vh;
+  padding: 1vh 0.6vw;
+}
+.lobby-jucatori.compact .loc-jucator .av-cerc { font-size: clamp(1.2rem, 3vh, 2rem); }
+.lobby-jucatori.compact .loc-jucator .nume { font-size: clamp(1rem, 2.2vh, 1.4rem); }
+.lobby-jucatori.compact .loc-jucator .eticheta-vip { font-size: 0.75rem; }
+.setari-rand { display: grid; grid-template-columns: 1fr 1fr; gap: 1.4vw; }
+.setari-rand > div { display: grid; gap: 1vh; align-content: start; }
+.segment.doi { grid-template-columns: repeat(2, 1fr); }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip {
+  border: 3px solid transparent;
+  background: rgba(255, 255, 255, 0.55);
+  border-radius: 999px;
+  padding: 0.3em 0.85em;
+  font-weight: 800;
+  font-size: clamp(0.9rem, 1.9vh, 1.1rem);
+  cursor: pointer;
+  color: var(--slab);
+}
+.chip[aria-pressed="true"] { background: #fff; border-color: var(--accent); color: var(--text); }
+
+/* lista din dreapta, cu punctaj în loc de bară */
+.lista-jucatori .lj-scor { font-weight: 800; color: var(--slab); font-size: 0.95rem; }
+.lista-jucatori .lj-scor b { font-family: var(--font-titlu); color: var(--text); font-size: 1.15rem; }
+
+/* podium cu text sub nume */
+.treapta-text { font-weight: 800; color: var(--slab); font-size: clamp(1rem, 2.4vh, 1.4rem); }
+
+/* butonul „sări peste” de pe laptop, vizibil pe fundal deschis */
+.buton-sari { background: #fff; color: var(--text); border: 2px solid var(--linie); box-shadow: var(--umbra-mica); }

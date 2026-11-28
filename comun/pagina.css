@@ -1,0 +1,39 @@
+/* Pagina de început a fiecărui joc (Țomapan, Avioanele) */
+body.pagina { min-height: 100dvh; }
+.pagina main { max-width: 980px; margin: 0 auto; padding: max(18px, env(safe-area-inset-top)) 16px 40px; display: grid; gap: 26px; }
+.pagina .inapoi { justify-self: start; color: var(--slab); font-weight: 800; text-decoration: none; background: rgba(255, 255, 255, 0.8); border-radius: 999px; padding: 6px 14px; }
+.pagina .erou { text-align: center; display: grid; gap: 10px; justify-items: center; }
+.pagina .erou .logo { font-size: clamp(2.6rem, 9vw, 4.6rem); }
+.pagina .erou p { font-size: clamp(1.05rem, 3.6vw, 1.3rem); font-weight: 700; color: var(--slab); max-width: 680px; }
+.pagina .alegeri { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
+.pagina .alegere {
+  background: #fff; border-radius: 28px; padding: 26px 22px; box-shadow: var(--umbra);
+  display: grid; gap: 10px; justify-items: center; text-align: center; color: var(--text); text-decoration: none;
+}
+.pagina .alegere .mare { font-size: 3.6rem; line-height: 1; }
+.pagina .alegere h2 { font-size: 1.7rem; }
+.pagina .alegere p { color: var(--slab); font-weight: 700; }
+.pagina .alegere .buton { margin-top: 6px; }
+.pagina .cod-rand { display: flex; gap: 8px; width: 100%; max-width: 320px; }
+.pagina .cod-rand input {
+  flex: 1; min-width: 0; font: inherit; font-family: var(--font-titlu); font-weight: 800; font-size: 1.6rem;
+  text-transform: uppercase; letter-spacing: 0.25em; text-align: center; padding: 10px; border-radius: 16px;
+  border: 3px solid var(--linie); outline: none;
+}
+.pagina .cod-rand input:focus { border-color: var(--accent); }
+.pagina .cum { background: rgba(255, 255, 255, 0.8); border-radius: 28px; padding: 24px; display: grid; gap: 14px; }
+.pagina .cum h2 { font-size: 1.8rem; }
+.pagina .cum .mic-titlu { font-size: 1.3rem; }
+.pagina .pasi { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; }
+.pagina .pas { background: #fff; border-radius: 20px; padding: 16px; display: grid; gap: 6px; align-content: start; }
+.pagina .pas b { font-size: 1.8rem; }
+.pagina .pas span { color: var(--slab); font-weight: 700; }
+.pagina .etichete { display: flex; flex-wrap: wrap; gap: 8px; }
+.pagina .etichete span { background: #fff; border-radius: 999px; padding: 6px 14px; font-weight: 800; }
+.pagina .etichete .extra { background: transparent; color: var(--slab); padding-left: 4px; }
+.pagina .cum-cu-avion { display: grid; grid-template-columns: 1fr auto; gap: 18px; align-items: center; }
+.pagina .avion-desen { display: grid; justify-items: center; gap: 8px; text-align: center; color: var(--slab); font-weight: 700; }
+@media (max-width: 640px) {
+  .pagina .cum-cu-avion { grid-template-columns: 1fr; }
+}
+.pagina footer { text-align: center; color: var(--slab); font-size: 0.9rem; }

@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="ro">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Avioanele – cu telefoanele</title>
+  <meta name="description" content="Jocul cu avioane pe tabla cu pătrățele, pentru 2–6 jucători: tablele se văd pe laptop sau TV, fiecare își ascunde avioanele pe telefon.">
+  <meta name="theme-color" content="#0891b2">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon-192.png" type="image/png">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Avioanele">
+  <script>
+    // linkul din codul QR (?cod=ABCD) duce direct la telefon
+    if (new URLSearchParams(location.search).get('cod')) location.replace('telefon.html' + location.search);
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../comun.css">
+  <link rel="stylesheet" href="../comun/pagina.css">
+  <link rel="stylesheet" href="stil.css">
+</head>
+<body class="pagina">
+  <main>
+    <a class="inapoi" href="../">← Toate jocurile</a>
+    <section class="erou">
+      <h1 class="logo"><span class="zar-logo">✈</span>Avioa<b>nele</b></h1>
+      <p>Jocul cu avioane de pe foaia cu pătrățele, pentru 2–6 jucători. Tablele se văd pe laptop sau TV, iar fiecare își ascunde avioanele pe telefon. Poate juca și calculatorul.</p>
+    </section>
+
+    <section class="alegeri">
+      <a class="alegere" href="ecran.html">
+        <span class="mare">📺</span>
+        <h2>Ecranul mare</h2>
+        <p>Deschide pe laptop sau TV. Aici apar tablele și loviturile.</p>
+        <span class="buton principal">Pornește jocul</span>
+      </a>
+      <form class="alegere" action="telefon.html" method="get">
+        <span class="mare">📱</span>
+        <h2>Sunt jucător</h2>
+        <p>Scrie codul de 4 litere de pe ecranul mare (sau scanează codul QR).</p>
+        <div class="cod-rand">
+          <input name="cod" maxlength="4" autocapitalize="characters" autocomplete="off" spellcheck="false" placeholder="COD" required aria-label="Codul camerei">
+          <button class="buton principal" type="submit">Intră</button>
+        </div>
+      </form>
+    </section>
+
+    <section class="cum">
+      <h2>Cum se joacă</h2>
+      <div class="cum-cu-avion">
+        <div class="pasi">
+          <div class="pas"><b>1 · ✈️</b><span>Fiecare își așază avioanele pe telefon, în secret. Le poți muta și roti sau le pui la întâmplare.</span></div>
+          <div class="pas"><b>2 · 🎯</b><span>Pe rând, fiecare alege pe telefon o căsuță, de exemplu C7, și trage.</span></div>
+          <div class="pas"><b>3 · 💥</b><span>„Aer” dacă n-ai nimerit nimic, „Lovit” dacă ai nimerit un avion. Dacă nimerești capul, avionul e doborât!</span></div>
+          <div class="pas"><b>4 · 🏆</b><span>Cine rămâne fără avioane iese din joc. Ultimul care mai are avioane câștigă.</span></div>
+        </div>
+        <div class="avion-desen">
+          <div class="forma-avion mare" id="forma"></div>
+          <small>Avionul are 10 pătrățele.<br>Roșu e capul.</small>
+        </div>
+      </div>
+      <h2 class="mic-titlu">Două feluri de joc</h2>
+      <div class="etichete">
+        <span>✈️✈️✈️ Clasic: tablă 10×10, câte 3 avioane</span><span>✈️✈️ Rapid: tablă 8×8, câte 2 avioane</span><span>🤖 Poți juca și cu calculatorul</span>
+      </div>
+    </section>
+
+    <footer>Laptopul și telefoanele au nevoie de internet (Wi-Fi sau date mobile). Nu se salvează nimic despre voi.</footer>
+  </main>
+  <script>
+    document.querySelector('input[name="cod"]').addEventListener('input', (e) => {
+      e.target.value = e.target.value.toUpperCase().replace(/[^A-Z]/g, '').slice(0, 4);
+    });
+    // desenul avionului: cap, aripi, corp, coadă
+    const forma = ['..C..', 'PPPPP', '..P..', '.PPP.'].join('');
+    document.getElementById('forma').innerHTML = [...forma].map((x) => `<i class="${x === 'C' ? 'p cap' : x === 'P' ? 'p' : ''}"></i>`).join('');
+    if ('serviceWorker' in navigator) navigator.serviceWorker.register('../sw.js').catch(() => {});
+  </script>
+</body>
+</html>

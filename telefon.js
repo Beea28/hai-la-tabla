@@ -122,7 +122,10 @@ function arataStare(s) {
 }
 
 function laMesaj(m) {
-  if (m.t === 'bine') {
+  if (m.t === 'cine') {
+    // ecranul mare a dat refresh si nu ne mai stie: ne prezentam iar
+    trimite({ t: 'salut', id: salvat.id, nume: st.nume, avatar: st.avatar });
+  } else if (m.t === 'bine') {
     st.eu = m.eu;
     randeazaCap();
     $('#banda').hidden = true;
