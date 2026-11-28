@@ -58,7 +58,14 @@
     <div class="lobby-dr">
       <h2>Jucători <span id="nr-jucatori" class="nr-jucatori">0/6</span></h2>
       <div id="lobby-jucatori" class="lobby-jucatori compact" style="--col:3"></div>
-      <button id="buton-bot" class="buton buton-bot" type="button">🤖 Joacă și calculatorul</button>
+      <div class="adauga-bot">
+        <p class="eticheta">🤖 Adaugă un calculator care joacă singur <small class="slab">(câte vrei)</small></p>
+        <div id="butoane-bot" class="segment">
+          <button type="button" data-nivel="usor">🙂 Ușor<small>trage la nimereală</small></button>
+          <button type="button" data-nivel="mediu">😐 Mediu<small>ca un om atent</small></button>
+          <button type="button" data-nivel="greu">😈 Greu<small>nu iartă nimic</small></button>
+        </div>
+      </div>
       <div class="setari">
         <p class="eticheta">Ce fel de joc?</p>
         <div id="seg-mod" class="segment doi" role="radiogroup" aria-label="Felul jocului">
@@ -114,6 +121,7 @@
   <script src="../retea.js" data-canal="avioane/v1/"></script>
   <script src="../comun/gazda.js"></script>
   <script src="avion.js"></script>
+  <script src="calculator.js"></script>
   <script src="ecran.js"></script>
 </body>
 </html>

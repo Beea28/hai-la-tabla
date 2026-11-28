@@ -30,7 +30,9 @@ body.telefon {
 .forma-cutie { display: grid; justify-items: center; gap: 6px; color: var(--slab); font-weight: 700; }
 .forma-cutie .forma-avion { width: clamp(90px, 15vh, 150px); }
 
-.buton-bot { width: 100%; font-size: 1.1rem; }
+.adauga-bot { display: grid; gap: 1vh; }
+.adauga-bot .segment button { font-size: 1.05rem; }
+.ta-nivel { font-size: 0.65em; font-weight: 800; color: var(--slab); background: #fff; border: 2px solid var(--linie); border-radius: 999px; padding: 0.05em 0.6em; white-space: nowrap; }
 
 /* ---------- Ecranul mare: tablele ---------- */
 /* jos rămâne o bandă liberă pentru butoane și codul camerei, ca să nu acopere căsuțe */

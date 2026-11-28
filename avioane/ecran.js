@@ -41,6 +41,7 @@ Object.assign(JOC, {
     if (A.faza === 'lupta') v.info = `✈️ ${A.k - doborate(j).length}/${A.k}`;
   },
   descriereSalvare: (s) => (s.joc.faza === 'lupta' ? `tura ${(s.joc.nrTura || 0) + 1}` : 'se așază avioanele'),
+  etichetaBot: (j) => `calculator · ${nivelBot(j).nume}`,
 });
 
 function pregatesteJucator(j) {
@@ -86,44 +87,21 @@ function liber(t, r, c) {
   return !celuleDoborate(t).has(r * A.n + c);
 }
 
-// calculatorul (și „trage în locul lui”): caută unde e cel mai probabil un cap
+// calculatorul trage (și „trage în locul lui” pentru cine lipsește, pe nivelul mediu)
+// îi dăm doar ce se vede pe ecran, nu și avioanele ascunse (vezi calculator.js)
 function tragereAI(j, tinte) {
-  const n = A.n;
-  const neterminate = tinte.filter((t) => {
-    const dob = celuleDoborate(t);
-    return t.lovituri.some((l) => l.rez === 'lovit' && !dob.has(l.r * n + l.c));
-  });
-  const t = alegeUnul(neterminate.length && Math.random() < 0.85 ? neterminate : tinte);
-  const stiut = new Map(t.lovituri.map((l) => [l.r * n + l.c, l.rez]));
-  const dob = celuleDoborate(t);
-  const scor = new Array(n * n).fill(0);
-  for (let r = 0; r < n; r++) {
-    for (let c = 0; c < n; c++) {
-      for (let dir = 0; dir < 4; dir++) {
-        let ok = true;
-        let acopera = 0;
-        celule({ r, c, dir }).forEach(([rr, cc], k) => {
-          if (!ok) return;
-          if (rr < 0 || cc < 0 || rr >= n || cc >= n) { ok = false; return; }
-          const x = rr * n + cc;
-          const s = stiut.get(x);
-          if (dob.has(x) || s === 'aer' || (k === 0 && s)) ok = false;
-          else if (s === 'lovit') acopera++;
-        });
-        if (ok) scor[r * n + c] += 1 + 12 * acopera * acopera;
-      }
-    }
-  }
-  const libere = [];
-  for (let x = 0; x < n * n; x++) if (!stiut.has(x) && !dob.has(x)) libere.push(x);
-  let x;
-  if (Math.random() < 0.2) x = alegeUnul(libere); // și calculatorul mai greșește
-  else {
-    const max = Math.max(...libere.map((y) => scor[y]));
-    x = alegeUnul(libere.filter((y) => scor[y] === max));
-  }
-  return { t, r: Math.floor(x / n), c: x % n };
+  const publice = tinte.map((t) => ({
+    id: t.id,
+    lovituri: t.lovituri,
+    doborate: doborate(t).map((i) => t.avioane[i]),
+    ramase: A.k - doborate(t).length,
+  }));
+  const { id, r, c } = tragereCalculator(publice, A.n, j.bot ? j.nivel : 'mediu');
+  return { t: tinte.find((t) => t.id === id), r, c };
 }
+
+const AVATARE_BOT = ['🤖', '👾', '🛸', '🦾', '💻', '🛰️'];
+const nivelBot = (j) => NIVELURI[j.nivel] || NIVELURI.mediu;
 
 // ================= Camera de asteptare =================
 function formaHtml() {
@@ -139,10 +117,8 @@ function formaHtml() {
 
 function randeazaSetari() {
   for (const b of $$('#seg-mod button')) b.setAttribute('aria-checked', String(b.dataset.v === S.setari.mod));
-  const bot = S.jucatori.find((j) => j.bot);
-  const b = $('#buton-bot');
-  b.textContent = bot ? '🤖 Calculatorul joacă și el' : '🤖 Joacă și calculatorul';
-  b.disabled = !!bot || S.jucatori.length >= JOC.maxJucatori;
+  const plin = S.jucatori.length >= JOC.maxJucatori;
+  for (const b of $$('#butoane-bot button')) b.disabled = plin;
 }
 
 function legaSetari() {
@@ -154,9 +130,15 @@ function legaSetari() {
     randeazaLobby();
     salveaza();
   });
-  $('#buton-bot').addEventListener('click', () => {
-    if (S.jucatori.some((j) => j.bot)) return;
-    adaugaBot('Calculatorul', '🤖');
+  $('#butoane-bot').addEventListener('click', (e) => {
+    const b = e.target.closest('button[data-nivel]');
+    if (!b || !NIVELURI[b.dataset.nivel]) return;
+    const boti = S.jucatori.filter((j) => j.bot);
+    const avatar = AVATARE_BOT.find((a) => !boti.some((j) => j.avatar === a)) || '🤖';
+    const nume = (k) => (k === 1 ? 'Calculatorul' : `Calculator ${k}`);
+    let k = 1;
+    while (boti.some((j) => j.nume === nume(k))) k++;
+    adaugaBot(nume(k), avatar, b.dataset.nivel);
   });
 }
 
@@ -172,6 +154,7 @@ function randeazaTabele() {
       <div class="ta-cap">
         <span class="av-cerc" style="--c:${j.culoare}">${j.avatar}</span>
         <span class="ta-nume">${esc(j.nume)}</span>
+        ${j.bot ? `<span class="ta-nivel">${nivelBot(j).nume}</span>` : ''}
         <span class="ta-eticheta"></span>
         <span class="ta-avioane"></span>
       </div>
@@ -317,7 +300,7 @@ async function laStart() {
     emoji: '🎯',
     titlu: 'Toate avioanele sunt în aer!',
     text: 'Trageți pe rând, în ordinea asta:',
-    extra: `<div class="ordine">${S.jucatori.map((j, i) => `<span>${i + 1}. ${nh(j)}</span>`).join('')}</div>`,
+    extra: `<div class="ordine">${S.jucatori.map((j, i) => `<span>${i + 1}. ${nh(j)}${j.bot ? ` <small class="slab">(${nivelBot(j).nume})</small>` : ''}</span>`).join('')}</div>`,
     durata: 3200,
   });
   await lupta();

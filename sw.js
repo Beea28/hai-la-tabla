@@ -1,7 +1,7 @@
 // Service worker: paginile se incarca repede si pot fi „instalate” pe ecranul principal.
 // Jocul in sine are nevoie de internet (legatura dintre telefoane si laptop).
 
-const CACHE = 'hai-la-tabla-v3';
+const CACHE = 'hai-la-tabla-v4';
 const FISIERE = [
   './',
   'index.html',
@@ -46,6 +46,7 @@ const FISIERE = [
   'avioane/telefon.html',
   'avioane/stil.css',
   'avioane/avion.js',
+  'avioane/calculator.js',
   'avioane/ecran.js',
   'avioane/telefon.js',
   'avioane/manifest.webmanifest',

@@ -56,7 +56,14 @@ Jocul cu avioane de pe foaia cu pătrățele. Avionul are 10 pătrățele: capul
 3. **Aer** dacă n-ai nimerit nimic, **Lovit** dacă ai nimerit un avion. Dacă nimerești **capul**, avionul e doborât și apare întreg pe tablă.
 4. Cine rămâne fără avioane iese din joc. Ultimul care mai are avioane câștigă. La final se văd toate avioanele.
 
-Moduri: **Clasic** (tablă 10×10, câte 3 avioane) sau **Rapid** (8×8, câte 2 avioane). Cu butonul „🤖 Joacă și calculatorul” intră un jucător controlat de laptop, ca să poți juca și singur.
+Moduri: **Clasic** (tablă 10×10, câte 3 avioane) sau **Rapid** (8×8, câte 2 avioane).
+
+**Calculatorul:** în camera de așteptare apeși „Adaugă un calculator” pe nivelul dorit. Poți pune mai mulți, chiar de niveluri diferite, ca să poți juca și singur:
+- 🙂 **Ușor** – trage mai mult la nimereală și doar uneori încearcă pe lângă o lovitură (îi trebuie în medie ~46 de trageri ca să doboare 3 avioane pe 10×10);
+- 😐 **Mediu** – caută pe lângă lovituri ca un om atent și uneori „socotește” (~28 de trageri);
+- 😈 **Greu** – socotește la fiecare tragere unde e cel mai probabil un cap (~13 trageri).
+
+Calculatorul vede doar ce e pe ecran (unde s-a tras și ce a ieșit), nu avioanele ascunse. Regulile lui sunt în `avioane/calculator.js`.
 
 ## Bine de știut
 - Laptopul și telefoanele au nevoie de internet (pot fi pe Wi-Fi diferite sau pe date mobile).

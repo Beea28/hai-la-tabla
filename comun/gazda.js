@@ -24,6 +24,7 @@ const JOC = {
   // reseteaza()          – inainte de „Încă un joc”
   // infoVedere(j, v)     – completeaza ce vede jucatorul sus pe telefon (v.info)
   // descriereSalvare(s)  – text scurt pentru „Continuă jocul”
+  // etichetaBot(j)       – ce scrie sub numele unui calculator în camera de așteptare
 };
 
 const S = {
@@ -271,10 +272,10 @@ function salut(conn, m) {
   salveaza();
 }
 
-// jucator controlat de calculator (de ex. la Avioane)
-function adaugaBot(nume, avatar) {
+// jucator controlat de calculator (de ex. la Avioane); nivel: usor | mediu | greu
+function adaugaBot(nume, avatar, nivel) {
   if (S.faza !== 'lobby' || S.jucatori.length >= JOC.maxJucatori) return null;
-  const j = jucatorNou({ id: 'bot' + Math.random().toString(36).slice(2, 10), nume, avatar, culoare: culoareLibera(), bot: true, online: true });
+  const j = jucatorNou({ id: 'bot' + Math.random().toString(36).slice(2, 10), nume, avatar, nivel, culoare: culoareLibera(), bot: true, online: true });
   S.jucatori.push(j);
   SUNET.intrare();
   trimiteLobby();
@@ -356,7 +357,7 @@ function salveaza() {
       setari: S.setari,
       vipId: S.vipId,
       jucatori: S.jucatori.map((j) => ({
-        id: j.id, nume: j.nume, avatar: j.avatar, culoare: j.culoare, bot: j.bot,
+        id: j.id, nume: j.nume, avatar: j.avatar, culoare: j.culoare, bot: j.bot, nivel: j.nivel,
         ...(S.faza === 'joc' ? JOC.salveazaJucator?.(j) : null),
       })),
       joc,
@@ -396,7 +397,7 @@ function randeazaLobby() {
       <span class="av-cerc" style="--c:${j.culoare}">${j.avatar}</span>
       <span class="nume">${esc(j.nume)}
         ${j.id === S.vipId ? '<span class="eticheta-vip">⭐ poate porni jocul</span>' : ''}
-        ${j.bot ? '<span class="eticheta-vip">joacă singur</span>' : ''}
+        ${j.bot ? `<span class="eticheta-vip">${esc(JOC.etichetaBot?.(j) || 'joacă singur')}</span>` : ''}
         ${j.online ? '' : '<span class="eticheta-vip">se reconectează…</span>'}
       </span>
       <button class="scoate" type="button" data-id="${j.id}" title="Scoate jucătorul">✕</button>
