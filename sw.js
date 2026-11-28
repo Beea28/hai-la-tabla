@@ -1,7 +1,7 @@
 // Service worker: paginile se incarca repede si pot fi „instalate” pe ecranul principal.
 // Jocul in sine are nevoie de internet (legatura dintre telefoane si laptop).
 
-const CACHE = 'hai-la-tabla-v2';
+const CACHE = 'hai-la-tabla-v3';
 const FISIERE = [
   './',
   'index.html',
@@ -21,6 +21,36 @@ const FISIERE = [
   'icons/icon-192.png',
   'icons/icon-512.png',
   'icons/apple-touch-icon.png',
+  // partea comuna pentru Tomapan si Avioanele
+  'comun/baza.js',
+  'comun/gazda.js',
+  'comun/telecomanda.js',
+  'comun/jocuri.css',
+  'comun/pagina.css',
+  // Tomapan
+  'tomapan/',
+  'tomapan/index.html',
+  'tomapan/ecran.html',
+  'tomapan/telefon.html',
+  'tomapan/stil.css',
+  'tomapan/reguli.js',
+  'tomapan/ecran.js',
+  'tomapan/telefon.js',
+  'tomapan/manifest.webmanifest',
+  'tomapan/icons/icon-192.png',
+  'tomapan/icons/apple-touch-icon.png',
+  // Avioanele
+  'avioane/',
+  'avioane/index.html',
+  'avioane/ecran.html',
+  'avioane/telefon.html',
+  'avioane/stil.css',
+  'avioane/avion.js',
+  'avioane/ecran.js',
+  'avioane/telefon.js',
+  'avioane/manifest.webmanifest',
+  'avioane/icons/icon-192.png',
+  'avioane/icons/apple-touch-icon.png',
 ];
 
 self.addEventListener('install', (e) => {

@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="ro">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Avioanele – ecranul mare</title>
+  <meta name="description" content="Avioanele cu telefoanele. Deschide pe laptop sau TV; jucătorii intră de pe telefon.">
+  <meta name="theme-color" content="#0891b2">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon-192.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../comun.css">
+  <link rel="stylesheet" href="../ecran.css">
+  <link rel="stylesheet" href="../comun/jocuri.css">
+  <link rel="stylesheet" href="stil.css">
+</head>
+<body class="ecran">
+
+  <!-- Pornire: joc nou sau continuare -->
+  <section id="pornire" class="pornire">
+    <div class="pornire-card">
+      <h1 class="logo"><span class="zar-logo">✈</span>Avioa<b>nele</b></h1>
+      <div id="pornire-continut"><p class="slab">Se pregătește camera…</p></div>
+    </div>
+  </section>
+
+  <!-- Camera de asteptare -->
+  <section id="lobby" class="lobby" hidden>
+    <div class="lobby-st">
+      <h1 class="logo logo-mare"><span class="zar-logo">✈</span>Avioa<b>nele</b></h1>
+      <div class="intrare-card">
+        <div class="qr qr-cod" aria-label="Cod QR pentru intrare"></div>
+        <div class="intrare-text">
+          <p class="pas-mare">📱 Scanați codul cu telefonul</p>
+          <p class="slab">sau intrați pe <b id="adresa"></b><br>și scrieți codul camerei:</p>
+          <div class="cod-mare cod-text">····</div>
+          <p id="stare-retea" class="stare-retea">Se conectează…</p>
+        </div>
+      </div>
+      <div class="cum cum-avioane">
+        <div>
+          <h3>Cum se joacă</h3>
+          <ul>
+            <li><span>✈️</span> Fiecare își așază pe telefon avioanele, în secret.</li>
+            <li><span>🎯</span> Pe rând, alegeți pe telefon o căsuță în care trageți.</li>
+            <li><span>💥</span> „Lovit” dacă nimerești un avion, „Aer” dacă nu. Dacă nimerești capul, avionul e doborât!</li>
+            <li><span>🏆</span> Câștigă cine rămâne ultimul cu avioane.</li>
+          </ul>
+        </div>
+        <div class="forma-cutie">
+          <div id="forma-lobby" class="forma-avion"></div>
+          <small>avionul (capul e marcat)</small>
+        </div>
+      </div>
+    </div>
+    <div class="lobby-dr">
+      <h2>Jucători <span id="nr-jucatori" class="nr-jucatori">0/6</span></h2>
+      <div id="lobby-jucatori" class="lobby-jucatori compact" style="--col:3"></div>
+      <button id="buton-bot" class="buton buton-bot" type="button">🤖 Joacă și calculatorul</button>
+      <div class="setari">
+        <p class="eticheta">Ce fel de joc?</p>
+        <div id="seg-mod" class="segment doi" role="radiogroup" aria-label="Felul jocului">
+          <button type="button" data-v="clasic" role="radio">✈️✈️✈️ Clasic<small>tablă 10×10, câte 3 avioane</small></button>
+          <button type="button" data-v="rapid" role="radio">✈️✈️ Rapid<small>tablă 8×8, câte 2 avioane</small></button>
+        </div>
+      </div>
+      <button id="buton-start" class="buton principal buton-start" type="button" disabled>▶ Începe jocul</button>
+      <p id="nota-start" class="nota-start">E nevoie de cel puțin 2 jucători.</p>
+    </div>
+  </section>
+
+  <!-- Jocul -->
+  <section id="joc" class="joc-av" hidden>
+    <div id="banner" class="banner"></div>
+    <div id="tabele" class="tabele"></div>
+    <div class="cod-colt">
+      <div class="qr-mic qr-cod"></div>
+      <p>Cod cameră<br><b class="cod-text"></b></p>
+    </div>
+  </section>
+
+  <!-- Anunturi -->
+  <div id="strat-anunt" class="strat" hidden></div>
+
+  <!-- Final -->
+  <section id="final" class="final" hidden>
+    <canvas id="confetti" class="confetti"></canvas>
+    <div class="final-continut">
+      <h1 id="final-titlu" class="final-titlu"></h1>
+      <div id="podium" class="podium"></div>
+      <ol id="final-rest" class="final-rest"></ol>
+      <div class="final-butoane">
+        <button id="buton-tabele" class="buton" type="button">👀 Vezi tablele</button>
+        <button id="buton-din-nou" class="buton principal" type="button">🔁 Încă un joc</button>
+        <button id="buton-camera-noua" class="buton" type="button">🏠 Cameră nouă</button>
+      </div>
+    </div>
+  </section>
+
+  <div id="reactii" class="reactii" aria-hidden="true"></div>
+
+  <div class="unelte">
+    <a class="unealta" href="../" title="Toate jocurile">🏠</a>
+    <button id="buton-sunet" class="unealta" type="button" title="Sunet">🔊</button>
+    <button id="buton-ecran" class="unealta" type="button" title="Ecran complet">⛶</button>
+  </div>
+
+  <script src="../lib/mqtt.min.js"></script>
+  <script src="../lib/qrcode.js"></script>
+  <script src="../comun/baza.js"></script>
+  <script src="../sunet.js"></script>
+  <script src="../retea.js" data-canal="avioane/v1/"></script>
+  <script src="../comun/gazda.js"></script>
+  <script src="avion.js"></script>
+  <script src="ecran.js"></script>
+</body>
+</html>

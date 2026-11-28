@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="ro">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Țomapan – ecranul mare</title>
+  <meta name="description" content="Țomapan cu telefoanele. Deschide pe laptop sau TV; jucătorii intră de pe telefon.">
+  <meta name="theme-color" content="#2563eb">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon-192.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../comun.css">
+  <link rel="stylesheet" href="../ecran.css">
+  <link rel="stylesheet" href="../comun/jocuri.css">
+  <link rel="stylesheet" href="stil.css">
+</head>
+<body class="ecran">
+
+  <!-- Pornire: joc nou sau continuare -->
+  <section id="pornire" class="pornire">
+    <div class="pornire-card">
+      <h1 class="logo logo-tomapan"><span>Ț</span><span>O</span><span>M</span><span>A</span><span>P</span><span>A</span><span>N</span></h1>
+      <div id="pornire-continut"><p class="slab">Se pregătește camera…</p></div>
+    </div>
+  </section>
+
+  <!-- Camera de asteptare -->
+  <section id="lobby" class="lobby" hidden>
+    <div class="lobby-st">
+      <h1 class="logo logo-mare logo-tomapan"><span>Ț</span><span>O</span><span>M</span><span>A</span><span>P</span><span>A</span><span>N</span></h1>
+      <div class="intrare-card">
+        <div class="qr qr-cod" aria-label="Cod QR pentru intrare"></div>
+        <div class="intrare-text">
+          <p class="pas-mare">📱 Scanați codul cu telefonul</p>
+          <p class="slab">sau intrați pe <b id="adresa"></b><br>și scrieți codul camerei:</p>
+          <div class="cod-mare cod-text">····</div>
+          <p id="stare-retea" class="stare-retea">Se conectează…</p>
+        </div>
+      </div>
+      <div class="cum">
+        <h3>Cum se joacă</h3>
+        <ul>
+          <li><span>🔤</span> Un jucător spune STOP pe telefon și așa se alege litera.</li>
+          <li><span>✍️</span> Fiecare scrie pe telefon câte un cuvânt cu litera aceea: țară, oraș, munte, apă, plantă, animal, nume.</li>
+          <li><span>🛑</span> Cine completează tot poate spune STOP. Ceilalți mai au 5 secunde.</li>
+          <li><span>👍</span> Verificați împreună: 10 puncte pentru un răspuns doar al tău, 5 dacă l-a mai scris cineva.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="lobby-dr">
+      <h2>Jucători <span id="nr-jucatori" class="nr-jucatori">0/8</span></h2>
+      <div id="lobby-jucatori" class="lobby-jucatori compact"></div>
+      <div class="setari">
+        <div class="setari-rand">
+          <div>
+            <p class="eticheta">Câte runde?</p>
+            <div id="seg-runde" class="segment" role="radiogroup" aria-label="Numărul de runde">
+              <button type="button" data-v="3" role="radio">3<small>~10 min</small></button>
+              <button type="button" data-v="5" role="radio">5<small>~15 min</small></button>
+              <button type="button" data-v="8" role="radio">8<small>~25 min</small></button>
+            </div>
+          </div>
+          <div>
+            <p class="eticheta">Timp de scris</p>
+            <div id="seg-timp" class="segment" role="radiogroup" aria-label="Timp de scris">
+              <button type="button" data-v="60" role="radio">1 min<small>rapid</small></button>
+              <button type="button" data-v="90" role="radio">1½ min<small>normal</small></button>
+              <button type="button" data-v="120" role="radio">2 min<small>relaxat</small></button>
+            </div>
+          </div>
+        </div>
+        <p class="eticheta">Categorii <small class="slab">(atinge ca să alegi, minim 3)</small></p>
+        <div id="chips-cat" class="chips"></div>
+      </div>
+      <button id="buton-start" class="buton principal buton-start" type="button" disabled>▶ Începe jocul</button>
+      <p id="nota-start" class="nota-start">E nevoie de cel puțin 2 jucători.</p>
+    </div>
+  </section>
+
+  <!-- Jocul -->
+  <section id="joc" class="joc" hidden>
+    <div class="zona-tabla">
+      <div id="banner" class="banner"></div>
+      <div id="scena" class="scena"></div>
+    </div>
+    <aside class="lateral">
+      <div class="lat-sus">
+        <h2 class="logo logo-tomapan"><span>Ț</span><span>O</span><span>M</span><span>A</span><span>P</span><span>A</span><span>N</span></h2>
+        <p id="lat-runda" class="lat-runda"></p>
+      </div>
+      <ol id="lista-jucatori" class="lista-jucatori"></ol>
+      <p id="lat-litere" class="lat-litere"></p>
+      <div class="lat-jos">
+        <div class="qr-mic qr-cod"></div>
+        <p>Cod cameră<br><b class="cod-text"></b><br><small>(pentru reconectare)</small></p>
+      </div>
+    </aside>
+  </section>
+
+  <!-- Anunturi -->
+  <div id="strat-anunt" class="strat" hidden></div>
+
+  <!-- Final -->
+  <section id="final" class="final" hidden>
+    <canvas id="confetti" class="confetti"></canvas>
+    <div class="final-continut">
+      <h1 id="final-titlu" class="final-titlu"></h1>
+      <div id="podium" class="podium"></div>
+      <ol id="final-rest" class="final-rest"></ol>
+      <div class="final-butoane">
+        <button id="buton-din-nou" class="buton principal" type="button">🔁 Încă un joc</button>
+        <button id="buton-camera-noua" class="buton" type="button">🏠 Cameră nouă</button>
+      </div>
+    </div>
+  </section>
+
+  <div id="reactii" class="reactii" aria-hidden="true"></div>
+
+  <div class="unelte">
+    <a class="unealta" href="../" title="Toate jocurile">🏠</a>
+    <button id="buton-sunet" class="unealta" type="button" title="Sunet">🔊</button>
+    <button id="buton-ecran" class="unealta" type="button" title="Ecran complet">⛶</button>
+  </div>
+
+  <script src="../lib/mqtt.min.js"></script>
+  <script src="../lib/qrcode.js"></script>
+  <script src="../comun/baza.js"></script>
+  <script src="../sunet.js"></script>
+  <script src="../retea.js" data-canal="tomapan/v1/"></script>
+  <script src="../comun/gazda.js"></script>
+  <script src="reguli.js"></script>
+  <script src="ecran.js"></script>
+</body>
+</html>

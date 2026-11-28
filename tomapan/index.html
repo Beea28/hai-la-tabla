@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="ro">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Țomapan – cu telefoanele</title>
+  <meta name="description" content="Țomapan (țări, orașe, munți, ape, plante, animale, nume) pentru 2–8 jucători: litera se vede pe laptop sau TV, fiecare scrie pe telefonul lui.">
+  <meta name="theme-color" content="#2563eb">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon-192.png" type="image/png">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Țomapan">
+  <script>
+    // linkul din codul QR (?cod=ABCD) duce direct la telefon
+    if (new URLSearchParams(location.search).get('cod')) location.replace('telefon.html' + location.search);
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../comun.css">
+  <link rel="stylesheet" href="../comun/pagina.css">
+  <link rel="stylesheet" href="stil.css">
+</head>
+<body class="pagina">
+  <main>
+    <a class="inapoi" href="../">← Toate jocurile</a>
+    <section class="erou">
+      <h1 class="logo logo-tomapan"><span>Ț</span><span>O</span><span>M</span><span>A</span><span>P</span><span>A</span><span>N</span></h1>
+      <p>Țări, orașe, munți, ape, plante, animale, nume! Pentru 2–8 jucători. Litera se vede pe laptop sau TV, iar fiecare scrie pe telefonul lui. Fără conturi, fără instalări, gratuit.</p>
+    </section>
+
+    <section class="alegeri">
+      <a class="alegere" href="ecran.html">
+        <span class="mare">📺</span>
+        <h2>Ecranul mare</h2>
+        <p>Deschide pe laptop sau TV. Aici apar litera, timpul și răspunsurile.</p>
+        <span class="buton principal">Pornește jocul</span>
+      </a>
+      <form class="alegere" action="telefon.html" method="get">
+        <span class="mare">📱</span>
+        <h2>Sunt jucător</h2>
+        <p>Scrie codul de 4 litere de pe ecranul mare (sau scanează codul QR).</p>
+        <div class="cod-rand">
+          <input name="cod" maxlength="4" autocapitalize="characters" autocomplete="off" spellcheck="false" placeholder="COD" required aria-label="Codul camerei">
+          <button class="buton principal" type="submit">Intră</button>
+        </div>
+      </form>
+    </section>
+
+    <section class="cum">
+      <h2>Cum se joacă</h2>
+      <div class="pasi">
+        <div class="pas"><b>1 · 🔤</b><span>Literele se schimbă pe ecranul mare. Un jucător apasă STOP pe telefon și așa se alege litera.</span></div>
+        <div class="pas"><b>2 · ✍️</b><span>Fiecare scrie pe telefon câte un cuvânt cu litera aceea pentru fiecare categorie. Nimeni nu vede ce scrii.</span></div>
+        <div class="pas"><b>3 · 🛑</b><span>Cine completează tot poate spune STOP. Ceilalți mai au 5 secunde.</span></div>
+        <div class="pas"><b>4 · 👍</b><span>Răspunsurile apar pe ecran. Pe telefon le marcați pe cele greșite. 10 puncte dacă doar tu ai scris cuvântul, 5 dacă l-a mai scris cineva.</span></div>
+      </div>
+      <h2 class="mic-titlu">Categoriile</h2>
+      <div class="etichete">
+        <span>🌍 Țări</span><span>🏙️ Orașe</span><span>⛰️ Munți</span><span>🌊 Ape</span><span>🌿 Plante</span><span>🐾 Animale</span><span>👤 Nume</span>
+        <span class="extra">+ la alegere: 🍕 Mâncare · 👷 Meserii · 🧸 Obiecte · ⚽ Sporturi · ⭐ Vedete · 🎬 Filme</span>
+      </div>
+    </section>
+
+    <footer>Laptopul și telefoanele au nevoie de internet (Wi-Fi sau date mobile). Nu se salvează nimic despre voi.</footer>
+  </main>
+  <script>
+    document.querySelector('input[name="cod"]').addEventListener('input', (e) => {
+      e.target.value = e.target.value.toUpperCase().replace(/[^A-Z]/g, '').slice(0, 4);
+    });
+    if ('serviceWorker' in navigator) navigator.serviceWorker.register('../sw.js').catch(() => {});
+  </script>
+</body>
+</html>

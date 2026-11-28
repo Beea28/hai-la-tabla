@@ -34,6 +34,7 @@ const SUNET = (() => {
 
   return {
     deblocheaza: () => { ac(); },
+    ton,
     pas: (dir = 1) => ton(dir > 0 ? 680 : 340, 0.07, 'triangle', 0.13),
     zar: () => { for (let i = 0; i < 10; i++) ton(260 + Math.random() * 520, 0.04, 'square', 0.045, i * 0.1); },
     bun: () => [523, 659, 784, 1047].forEach((f, i) => ton(f, 0.16, 'triangle', 0.14, i * 0.08)),

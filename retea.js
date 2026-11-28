@@ -4,7 +4,8 @@
 // Asa jocul merge si pe date mobile sau pe retele Wi-Fi diferite.
 
 const RETEA = (() => {
-  const PREFIX = 'hailatabla/v2/';
+  // fiecare joc are canalele lui (<script src="retea.js" data-canal="tomapan/v1/">), ca sa nu se amestece camerele
+  const PREFIX = document.currentScript?.dataset.canal || 'hailatabla/v2/';
   const BROKERI = [
     'wss://broker.hivemq.com:8884/mqtt',
     'wss://broker.emqx.io:8084/mqtt',

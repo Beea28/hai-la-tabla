@@ -142,6 +142,11 @@ function laMesaj(conn, m) {
     try { conn.send({ t: 'pong' }); } catch { /* nimic */ }
     const j = jucatorDupaConn(conn);
     if (j) atins(j);
+    else if (Date.now() - (conn.cerutSalut || 0) > 4000) {
+      // telefon necunoscut (de ex. dupa refresh pe laptop): il rugam sa se prezinte iar
+      conn.cerutSalut = Date.now();
+      try { conn.send({ t: 'cine' }); } catch { /* nimic */ }
+    }
     return;
   }
   if (m.t === 'salut') {
